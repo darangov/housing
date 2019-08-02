@@ -9,8 +9,8 @@ HOUSING_PATH = os.path.join("datasets","housing")
 HOUSING_URL = DOWNLOAD_ROOT + "datasets/housing/housing.tgz"
 '''
 
-# Obtain data
-'''
+# Obtener la data de internet - Tal lo indicado en el libro
+"""
 def fetch_housing_data(housing_url=HOUSING_URL, housing_path=HOUSING_PATH):
     if not os.path.isdir(housing_path):
         os.makedirs(housing_path)
@@ -19,19 +19,35 @@ def fetch_housing_data(housing_url=HOUSING_URL, housing_path=HOUSING_PATH):
     housing_tgz = tarfile.open(tgz_path)
     housing_tgz.extractall(path=housing_path)
     housing_tgz.close()
-'''
 
-# Call data function
-'''
+# Invocar la funcion para descargar y descomprimir la data localmente
 fetch_housing_data()
-'''
 
-# Load the data
+# Funcion para abrir el dataset ubicado en una carpeta diferente a donde esta el .py
 def load_housing_data(housing_path=HOUSING_PATH):
     csv_path = os.path.join(housing_path, "housing.csv")
     return pd.read_csv(csv_path)
 
 housing = load_housing_data()
+"""
+
+# Abro el dataset ubicado en la misma carpeta del .py
+housing = pd.read_csv("housing.csv")
+
+head_housing = housing.head()
+print(head_housing)
+
+"""
+# Carga de la data
+avocado_dataframe = pd.read_csv("avocado.csv") 
+
+#print(avocado_dataframe)
+# Visualizo los primeros 5 registros del dataframe
+head_avocado = avocado_dataframe.head()
+print(head_avocado)
+
+"""
+
 housing.head() # Top five rows in the dataframe
 
 housing.info() # Description of the data

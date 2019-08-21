@@ -238,5 +238,50 @@ print ("Proporcion la categoria income_cat en el dataset completo: ", (housing["
 
 # ------------------------------------------------------------
 
+#housing.head() # Top five rows in the dataframe
+strat_train_set.head()
+
+# --------------------------------------------------------
+
+# Removemos el atributo income_cat de strat_train_set y de strat_test_set para dejar el dataset
+# en su estado original
+
+for set_ in (strat_train_set, strat_test_set):
+    set_.drop("income_cat", axis = 1, inplace = True) # drop values from column income_cat
+    
+    # axis = 1: Recorre verticalmente por columnas (izquierda a derecha) ???
+    # axis = 0: Recorre horizontalmente por filas (arriba hacia abajo) ???
+# -----------------------------------------------------------
+
+# housing.head() # Top five rows in the dataframe
+# strat_train_set.head()
+
+# -----------------------------------------------------------
+
+# Creo copia del training set para no dañar el original.Lo llamo housing
+housing = strat_train_set.copy()
+
+#-------------------------------------------------------------
+housing.head()
+
+#-------------------------------------------------------------
+
+# Dado que tenemos informacion geografica (latitud y longitud) creamos un scatterplot
+# de la copia de strat_train_set y que llamé housing
+
+#housing.plot(kind = "scatter", x = "longitude", y = "latitude")
+"""housing.plot(kind = "scatter", x = "longitude", y = "latitude", title = "High density areas", grid = True, 
+             alpha = "0.1") """
+
+housing.plot(kind = "scatter", x = "longitude", y = "latitude", title = "High Density Areas", grid = True, 
+             alpha = 0.4, s = housing["population"]/100, label = "population", figsize = (10,7), 
+             c = "median_house_value", cmap = plt.get_cmap("jet"), colorbar = True)
+plt.legend()
+
+# El radio de cada circulo representa la poblacion de cada distrito (opcion s)
+# El color representa el precio (opcion c)
+# color map predefinido (opcion cmap) llamado jet, que va de azul a rojo
+
+#-------------------------------------------------------------------------------------------
 
 

@@ -284,4 +284,14 @@ plt.legend()
 
 #-------------------------------------------------------------------------------------------
 
+# Determino correlaciones
+# Con el coeficiente de correlacion estandar (Pearsons r) entre cada par de atributos
+# respecto al atributo median_house_value
+
+corr_matrix = housing.corr()
+
+corr_matrix["median_house_value"].sort_values(ascending = False)
+
+#-------------------------------------------------------------------------------------------
+
 

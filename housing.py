@@ -54,7 +54,6 @@ housing["ocean_proximity"].value_counts()
 # Summary of the numerical attributes
 housing.describe()
 
-
 # Plot Histogram to get another feel of the type of data
 # solo para usar en Jupyter: %matplotlib inline
 #import matplotlib.pyplot as plt
@@ -294,4 +293,11 @@ corr_matrix["median_house_value"].sort_values(ascending = False)
 
 #-------------------------------------------------------------------------------------------
 
+# Grafico correlaciones entre algunos atributos numericos
+from pandas.plotting import scatter_matrix
+attributes = ["median_house_value", "median_income", "total_rooms", "housing_median_age"]
+scatter_matrix(housing[attributes], figsize=(12, 8))
 
+# El atributo mas promisorio para predecir el median_house_value es el median_income
+housing.plot(kind = "scatter", x = "median_income", y = "median_house_value", 
+alpha = 0.1)

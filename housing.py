@@ -128,16 +128,16 @@ print(len(train_set), "Train Set data +", len(test_set), "Test Set data")
 
 # Dado que el atributo "median income" es importante para predecir el "median housing prices"
 # y para evitar sesgos en la informacion, para garantizar que el "test set" sea representativo
-# de las varias categorias de ingresos en el dataset, creamos un atributo categorico para el income
-# dado que este es un valor continuo
-# divido el "median_income" por 1.5 para limitar las categorias y las categorias cuyo valor sea
-
+# de las varias categorias de ingresos en el dataset, creamos un atributo categorico para el 
+# median_income, dado que este es un valor continuo.
+# divido el "median_income" por 1.5 y redondeadas para limitar el numero de categorias del median income
+# de manera discreta. Las categorias cuyo valor sea mayor a 5, las clasifico en la categoria 5
 
 housing["income_cat"] = np.ceil(housing["median_income"] / 1.5)
 housing["income_cat"].where(housing["income_cat"] < 5, 5.0, inplace = True)
 
 """
-Where Parameters
+'Where' Parameters
 ----------
 cond : boolean NDFrame, array-like, or callable
     Where `cond` is True, keep the original value. Where
@@ -214,11 +214,12 @@ print ("Tamaño strat_test_set", len(strat_test_set))
 #print (strat_train_set)
 
 #Proporcion de la categoria "income_cat" en el test_set
-print("Proporcion con Sampling de la categoria income_cat en el test_set: ", (strat_test_set["income_cat"].value_counts() / len(strat_test_set) * 100))
+print("Proporcion con Sampling de la categoria income_cat en el test_set: ", 
+(strat_test_set["income_cat"].value_counts() / len(strat_test_set) * 100))
 
 # ------------------------------------------------------------
 
-# De acuerdo con Seleccion Random
+# De acuerdo con tipo Seleccion Random
 
 from sklearn.model_selection import train_test_split
 
@@ -228,12 +229,14 @@ print(len(train_set), "Train Set data +", len(test_set), "Test Set data")
 
 
 #Proporcion de la categoria "income_cat" en el test_set con seleccion de datos aleatoria
-print("Proporcion RANDOM de la categoria income_cat en el test_set: ", (test_set["income_cat"].value_counts() / len(strat_test_set) * 100))
+print("Proporcion RANDOM de la categoria income_cat en el test_set: ", 
+(test_set["income_cat"].value_counts() / len(strat_test_set) * 100))
 
 # -------------------------------------------------------------
 
 #Proporcion de la categoria "income_cat" en el dataset completo
-print ("Proporcion la categoria income_cat en el dataset completo: ", (housing["income_cat"].value_counts() / len(housing)*100))
+print ("Proporcion de la categoria income_cat en el dataset completo: ", 
+(housing["income_cat"].value_counts() / len(housing)*100))
 
 # ------------------------------------------------------------
 
@@ -257,7 +260,7 @@ for set_ in (strat_train_set, strat_test_set):
 
 # -----------------------------------------------------------
 
-# Creo copia del training set para no dañar el original.Lo llamo housing
+# Creo copia del training set para no dañar el original. Lo llamo housing
 housing = strat_train_set.copy()
 
 #-------------------------------------------------------------
@@ -299,5 +302,6 @@ attributes = ["median_house_value", "median_income", "total_rooms", "housing_med
 scatter_matrix(housing[attributes], figsize=(12, 8))
 
 # El atributo mas promisorio para predecir el median_house_value es el median_income
+# por lo que ampliaremos la imagen de su correlacion con el atributo objetivo
 housing.plot(kind = "scatter", x = "median_income", y = "median_house_value", 
 alpha = 0.1)
